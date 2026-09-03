@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022"],
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "paths": {
+      "@argus/agents": ["./packages/agents/src/index.ts"],
+      "@argus/backends": ["./packages/backends/src/index.ts"],
+      "@argus/config": ["./packages/config/src/index.ts"],
+      "@argus/db": ["./packages/db/src/index.ts"],
+      "@argus/llm-gateway": ["./packages/llm-gateway/src/index.ts"],
+      "@argus/otel": ["./packages/otel/src/index.ts"],
+      "@argus/shared-types": ["./packages/shared-types/src/index.ts"]
+    },
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "skipLibCheck": true
+  }
+}
