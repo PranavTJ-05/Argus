@@ -1,0 +1,19 @@
+{
+  "name": "@argus/otel",
+  "version": "0.0.0",
+  "author": "PranavTJ-05",
+  "private": true,
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "biome check .",
+    "test": "vitest run",
+    "clean": "rm -rf dist coverage"
+  },
+  "dependencies": {
+    "@argus/config": "workspace:*"
+  }
+}
