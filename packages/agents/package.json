@@ -1,0 +1,25 @@
+{
+  "name": "@argus/agents",
+  "version": "0.0.0",
+  "author": "PranavTJ-05",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "biome check .",
+    "test": "vitest run",
+    "clean": "rm -rf dist coverage"
+  },
+  "dependencies": {
+    "@argus/llm-gateway": "workspace:*",
+    "@argus/shared-types": "workspace:*",
+    "zod": "^3.24.1"
+  }
+}
