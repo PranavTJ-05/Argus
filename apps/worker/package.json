@@ -1,0 +1,31 @@
+{
+  "name": "@argus/worker",
+  "version": "0.0.0",
+  "author": "PranavTJ-05",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -b tsconfig.json",
+    "dev": "tsx watch src/main.ts",
+    "start": "node dist/main.js",
+    "health": "node dist/health.js",
+    "typecheck": "tsc -b tsconfig.json",
+    "lint": "biome check .",
+    "test": "vitest run",
+    "clean": "rm -rf dist coverage"
+  },
+  "dependencies": {
+    "@argus/agents": "workspace:*",
+    "@argus/backends": "workspace:*",
+    "@argus/config": "workspace:*",
+    "@argus/db": "workspace:*",
+    "@argus/llm-gateway": "workspace:*",
+    "@argus/otel": "workspace:*",
+    "@argus/shared-types": "workspace:*",
+    "inngest": "^3.32.0",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.2"
+  }
+}
