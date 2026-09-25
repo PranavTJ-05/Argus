@@ -1,0 +1,29 @@
+{
+  "name": "@argus/api",
+  "version": "0.0.0",
+  "author": "PranavTJ-05",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/main.ts",
+    "build": "tsc -b tsconfig.json",
+    "start": "node dist/main.js",
+    "typecheck": "tsc -b tsconfig.json",
+    "lint": "biome check .",
+    "test": "vitest run",
+    "clean": "rm -rf dist coverage"
+  },
+  "dependencies": {
+    "@argus/config": "workspace:*",
+    "@argus/db": "workspace:*",
+    "@argus/otel": "workspace:*",
+    "@argus/shared-types": "workspace:*",
+    "fastify": "^5.2.1",
+    "inngest": "^3.32.0",
+    "pino": "^9.5.0",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.2"
+  }
+}
