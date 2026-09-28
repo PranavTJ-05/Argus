@@ -1,0 +1,36 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "allowJs": false,
+    "declaration": false,
+    "declarationMap": false,
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "preserve",
+    "noEmit": true,
+    "outDir": ".next/types",
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "types": ["node"],
+    "incremental": true
+  },
+  "include": [
+    "app/**/*.ts",
+    "app/**/*.tsx",
+    "middleware.ts",
+    "next-env.d.ts",
+    "next.config.ts",
+    "tests/**/*.ts",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": ["node_modules", ".next", "coverage", "playwright-report", "test-results"],
+  "references": [
+    {
+      "path": "../../packages/shared-types"
+    }
+  ]
+}
