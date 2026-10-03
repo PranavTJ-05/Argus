@@ -1,0 +1,26 @@
+{
+  "name": "@argus/evals",
+  "version": "0.0.0",
+  "author": "PranavTJ-05",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "biome check .",
+    "test": "vitest run",
+    "eval:smoke": "pnpm build && ARGUS_EVAL_DATASET=smoke node dist/run-full-dataset.js",
+    "eval:full": "pnpm build && node dist/run-full-dataset.js",
+    "clean": "rm -rf dist coverage"
+  },
+  "dependencies": {
+    "@argus/shared-types": "workspace:*",
+    "zod": "^3.24.1"
+  }
+}
