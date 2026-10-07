@@ -1,0 +1,143 @@
+# Example Render blueprint for one isolated Argus company deployment.
+# Copy this file, replace <company-slug>, and set all sync:false values in Render.
+# Do not commit customer secrets.
+
+databases:
+  - name: argus-db-<company-slug>
+    databaseName: argus
+    user: argus
+    plan: free
+    region: oregon
+
+services:
+  - type: web
+    name: argus-api-<company-slug>
+    runtime: docker
+    dockerfilePath: apps/api/Dockerfile
+    dockerContext: .
+    plan: free
+    region: oregon
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: LOG_LEVEL
+        value: info
+      - key: API_HOST
+        value: 0.0.0.0
+      - key: API_PORT
+        value: 3001
+      - key: API_KEY
+        sync: false
+      - key: API_RATE_LIMIT_MAX
+        value: 60
+      - key: API_RATE_LIMIT_WINDOW_MS
+        value: 60000
+      - key: API_REQUEST_BODY_LIMIT_BYTES
+        value: 65536
+      - key: API_CORS_ORIGIN
+        value: https://argus-dashboard-<company-slug>.onrender.com
+      - key: AUTH_BOOTSTRAP_EMAIL
+        sync: false
+      - key: AUTH_BOOTSTRAP_PASSWORD
+        sync: false
+      - key: AUTH_BOOTSTRAP_WORKSPACE_NAME
+        value: Argus <company-slug>
+      - key: WORKER_HOST
+        value: 0.0.0.0
+      - key: WORKER_PORT
+        value: 3002
+      - key: DATABASE_URL
+        sync: false
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: INNGEST_EVENT_KEY
+        sync: false
+      - key: INNGEST_SIGNING_KEY
+        sync: false
+      - key: INNGEST_BASE_URL
+        value: https://api.inngest.com
+      - key: NEXT_PUBLIC_API_URL
+        value: https://argus-api-<company-slug>.onrender.com
+      - key: OTEL_SERVICE_NAME
+        value: argus-api-<company-slug>
+      - key: OTEL_TRACES_EXPORTER
+        value: otlp
+      - key: OTEL_METRICS_EXPORTER
+        value: otlp
+      - key: OTEL_LOGS_EXPORTER
+        value: otlp
+
+  - type: web
+    name: argus-worker-<company-slug>
+    runtime: docker
+    dockerfilePath: apps/worker/Dockerfile
+    dockerContext: .
+    plan: free
+    region: oregon
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: LOG_LEVEL
+        value: info
+      - key: API_HOST
+        value: 0.0.0.0
+      - key: API_PORT
+        value: 3001
+      - key: API_KEY
+        sync: false
+      - key: WORKER_HOST
+        value: 0.0.0.0
+      - key: WORKER_PORT
+        value: 3002
+      - key: DATABASE_URL
+        sync: false
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: INNGEST_EVENT_KEY
+        sync: false
+      - key: INNGEST_SIGNING_KEY
+        sync: false
+      - key: INNGEST_BASE_URL
+        value: https://api.inngest.com
+      - key: NEXT_PUBLIC_API_URL
+        value: https://argus-api-<company-slug>.onrender.com
+      - key: OTEL_SERVICE_NAME
+        value: argus-worker-<company-slug>
+      - key: OTEL_TRACES_EXPORTER
+        value: otlp
+      - key: OTEL_METRICS_EXPORTER
+        value: otlp
+      - key: OTEL_LOGS_EXPORTER
+        value: otlp
+      - key: GITHUB_TOKEN
+        sync: false
+      - key: GITHUB_OWNER
+        sync: false
+      - key: GITHUB_REPO
+        sync: false
+      - key: TEMPO_ENDPOINT
+        sync: false
+      - key: LOKI_ENDPOINT
+        sync: false
+      - key: PROMETHEUS_ENDPOINT
+        sync: false
+      - key: LAUNCHDARKLY_API_TOKEN
+        sync: false
+
+  - type: web
+    name: argus-dashboard-<company-slug>
+    runtime: docker
+    dockerfilePath: apps/dashboard/Dockerfile
+    dockerContext: .
+    plan: free
+    region: oregon
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: API_KEY
+        sync: false
+      - key: NEXT_PUBLIC_API_URL
+        value: https://argus-api-<company-slug>.onrender.com
