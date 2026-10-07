@@ -1,0 +1,122 @@
+services:
+  - type: web
+    name: argus-api
+    runtime: docker
+    dockerfilePath: apps/api/Dockerfile
+    dockerContext: .
+    plan: free
+    region: oregon
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: LOG_LEVEL
+        value: info
+      - key: API_HOST
+        value: 0.0.0.0
+      - key: API_PORT
+        value: 3001
+      - key: API_KEY
+        generateValue: true
+      - key: API_RATE_LIMIT_MAX
+        value: 60
+      - key: API_RATE_LIMIT_WINDOW_MS
+        value: 60000
+      - key: API_REQUEST_BODY_LIMIT_BYTES
+        value: 65536
+      - key: API_CORS_ORIGIN
+        value: https://argus-dashboard.onrender.com
+      - key: AUTH_BOOTSTRAP_EMAIL
+        sync: false
+      - key: AUTH_BOOTSTRAP_PASSWORD
+        sync: false
+      - key: AUTH_BOOTSTRAP_WORKSPACE_NAME
+        value: Argus Workspace
+      - key: INTEGRATION_SECRET_KEY
+        sync: false
+      - key: WORKER_HOST
+        value: 0.0.0.0
+      - key: WORKER_PORT
+        value: 3002
+      - key: DATABASE_URL
+        sync: false
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: INNGEST_EVENT_KEY
+        sync: false
+      - key: INNGEST_SIGNING_KEY
+        sync: false
+      - key: INNGEST_BASE_URL
+        value: https://api.inngest.com
+      - key: NEXT_PUBLIC_API_URL
+        value: https://argus-api.onrender.com
+      - key: OTEL_SERVICE_NAME
+        value: argus-api
+      - key: OTEL_TRACES_EXPORTER
+        value: otlp
+      - key: OTEL_METRICS_EXPORTER
+        value: otlp
+      - key: OTEL_LOGS_EXPORTER
+        value: otlp
+
+  - type: web
+    name: argus-worker
+    runtime: docker
+    dockerfilePath: apps/worker/Dockerfile
+    dockerContext: .
+    plan: free
+    region: oregon
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: LOG_LEVEL
+        value: info
+      - key: API_HOST
+        value: 0.0.0.0
+      - key: API_PORT
+        value: 3001
+      - key: API_KEY
+        generateValue: true
+      - key: WORKER_HOST
+        value: 0.0.0.0
+      - key: WORKER_PORT
+        value: 3002
+      - key: INTEGRATION_SECRET_KEY
+        sync: false
+      - key: DATABASE_URL
+        sync: false
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: INNGEST_EVENT_KEY
+        sync: false
+      - key: INNGEST_SIGNING_KEY
+        sync: false
+      - key: INNGEST_BASE_URL
+        value: https://api.inngest.com
+      - key: NEXT_PUBLIC_API_URL
+        value: https://argus-api.onrender.com
+      - key: OTEL_SERVICE_NAME
+        value: argus-worker
+      - key: OTEL_TRACES_EXPORTER
+        value: otlp
+      - key: OTEL_METRICS_EXPORTER
+        value: otlp
+      - key: OTEL_LOGS_EXPORTER
+        value: otlp
+
+  - type: web
+    name: argus-dashboard
+    runtime: docker
+    dockerfilePath: apps/dashboard/Dockerfile
+    dockerContext: .
+    plan: free
+    region: oregon
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: API_KEY
+        sync: false
+      - key: NEXT_PUBLIC_API_URL
+        value: https://argus-api.onrender.com
