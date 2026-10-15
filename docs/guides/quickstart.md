@@ -15,7 +15,7 @@ pnpm db:up
 pnpm db:migrate
 ```
 
-Placeholder model keys are enough while the worker uses mocked agent output.
+Set a real `ANTHROPIC_API_KEY` in `.env`. The worker runs the live agents, so a placeholder key makes every investigation fail with a 401. The apps read `.env` from their own working directory, so export it first with `set -a; source .env; set +a`. The worker and dashboard both default to port 3002, so set `WORKER_PORT` to something else, and start a local Inngest dev server with `npx inngest-cli@latest dev -u http://localhost:<WORKER_PORT>/api/inngest`.
 
 ## Start the services
 
